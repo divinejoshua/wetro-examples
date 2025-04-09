@@ -20,7 +20,14 @@ client.collection.insert_resource(
 query_response = client.collection.query_collection(
     collection_id="my_unique_collection_id_yt",
     request_query= "What are the key points of the video?",
-    model="meta-llama/llama-4-scout-17b-16e-instruct")
+    stream=True
+)
+
 
 # Print the query response
-print("Query response: %s", query_response)
+# print("Query response: %s", query_response)
+
+# Process streaming response
+for chunk in query_response:
+    print(chunk.response, end="")
+
