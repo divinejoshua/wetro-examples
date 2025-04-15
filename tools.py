@@ -1,13 +1,17 @@
 from wetro import Wetrocloud
-from decouple import config
+import os
 
-client = Wetrocloud(api_key=config("WETROCLOUD_API_KEY"))
-tools_client = client.tools
+# Initialize Wetrocloud client
+client = Wetrocloud(api_key=os.getenv("WETROCLOUD_API_KEY"))
 
-# Extract structured data from a website
-extract_response = tools_client.extract(
-    website="https://thegenzhr.substack.com/p/thriving-in-the-workplace-as-an-introvert",
-    json_schema={"name_of_sponsor": "<name>", "about_sponsor": "<string>"}
+# Generate text with a specific model
+response = client.generate_text(
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."}, 
+        {"role": "user", "content": "Write a short poem about technology."}
+    ],
+    model="gpt-4.1-nano"
 )
-print(extract_response)
-print(type(extract_response.response))
+# Process streaming response
+for chunk in response.response:
+    print(chunk, end="")

@@ -3,20 +3,22 @@ from decouple import config
 
 client = Wetrocloud(api_key=config("WETROCLOUD_API_KEY"))
 
-# Access modules
-rag = client.rag
 
 # Set or create a collection
-rag.collection.get_or_create_collection_id("my_unique_x_yt")
+collection_id = "my_unique_x_file"
+client.collection.get_or_create_collection_id("my_unique_x_file")
+
 
 # Insert a youtube resource
-insert_response = rag.collection.insert(
-    resource="https://www.youtube.com/watch?v=66ApiDp-nV8", 
-    type="youtube",)
+insert_response = client.collection.insert_resource(
+    collection_id=collection_id,
+    resource="./data.txt", 
+    type="file")
 
 # Query the collection
-query_response = rag.collection.query(
-    request_query="What are the key points in this video?",
+query_response = client.collection.query_collection(
+    collection_id=collection_id,
+    request_query="What did the author do growing up?",
     stream=True,
 )
 
