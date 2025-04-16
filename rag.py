@@ -5,14 +5,14 @@ client = Wetrocloud(api_key=config("WETROCLOUD_API_KEY"))
 
 
 # Set or create a collection
-collection_id = "my_unique_x_file"
-client.collection.get_or_create_collection_id("my_unique_x_file")
+collection_id = "my_unique_x_file_paul_g"
+client.collection.get_or_create_collection_id(collection_id)
 
 
 # Insert a youtube resource
 insert_response = client.collection.insert_resource(
     collection_id=collection_id,
-    resource="./data.txt", 
+    resource="./paul_g/data.txt", 
     type="file")
 
 # Query the collection
