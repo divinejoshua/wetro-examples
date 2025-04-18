@@ -4,14 +4,9 @@ import os
 # Initialize Wetrocloud client
 client = Wetrocloud(api_key=os.getenv("WETROCLOUD_API_KEY"))
 
-# Generate text with a specific model
-response = client.generate_text(
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."}, 
-        {"role": "user", "content": "Write a short poem about technology."}
-    ],
-    model="gpt-4.1-nano"
+# Extract structured data from a website
+extract_response = client.extract(
+   website="https://www.forbes.com/real-time-billionaires/#7583ee253d78",
+   json_schema=[{"name": "name of rich man", "networth": "amount worth"}]
 )
-# Process streaming response
-for chunk in response.response:
-    print(chunk, end="")
+print(extract_response)
